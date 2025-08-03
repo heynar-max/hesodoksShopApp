@@ -20,3 +20,71 @@ Para iniciar el servidor de desarrollo Metro, ejecute el siguiente comando desde
 npm start android
 
 ```
+
+## Paso 2: Stack navigator
+
+se instala el stack
+```sh
+npm install @react-navigation/stack
+npm install react-native-gesture-handler
+npm install @react-native-masked-view/masked-view
+```
+se importan en el punto mas alto de aplicación app
+ ```sh
+import 'react-native-gesture-handler';
+```
+se pone en la parte mas alta de la aplicación app
+```sh
+<NavigationContainer>
+```
+se crea archivo creat navigator.
+
+## Step 3: Instalación de los fundamento de react-navigation
+-- [**React Navigation**](https://reactnavigation.org/) --
+
+```sh
+npm install @react-navigation/native
+npm install react-native-screens react-native-safe-area-context
+```
+
+en la carpeta MainActivity.kt se copia estas lineas
+```sh
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
+    }
+```
+debe importar este paquete
+```sh
+import android.os.Bundle;
+
+```
+
+## Step 4: Instalación ui kitten
+se debe instalar los permisos, por que si no la aplicacion no los puede usar
+
+-- [**react-ui-kitten**](https://akveo.github.io/react-native-ui-kitten/) --
+
+```sh
+npm i @ui-kitten/components @eva-design/eva react-native-svg
+
+```
+
+se instala iconos de esa aplicacion
+```sh
+    npm i @ui-kitten/eva-icons react-native-svg
+```
+
+## Paso 5: instalar los iconos vector
+
+-- [**Iconos Vector**](https://github.com/oblador/react-native-vector-icons) --
+```sh
+npm install react-native-vector-icons
+```
+en la carpeta android/app/build.gladle,  pone esta linea
+ ```sh
+project.ext.vectoricons = [
+    iconFontNames: [ 'Ionicons.ttf' ] // Specify font files
+]
+
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
+```
