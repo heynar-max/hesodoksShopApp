@@ -2,8 +2,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { LoadingScreen } from '../screens/loading/LoadingScreen';
 import { ProductScreen } from '../screens/product/ProductScreen';
-import { RegisterScreen } from '../screens/auth/RegisterScreen';
+
 import { LoginScreen } from '../screens/auth/LoginScreen';
+import { RegisterScreen } from '../screens/auth/RegisterScreen';
 
 
 export type RootStackParams = {

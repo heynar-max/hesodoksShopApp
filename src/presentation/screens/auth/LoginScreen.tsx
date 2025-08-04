@@ -1,64 +1,93 @@
-import {  Button, Input, Layout, Text } from '@ui-kitten/components'
-import { useWindowDimensions } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Button, Input, Layout, Text } from '@ui-kitten/components';
+import { CustomIcon } from '../../components/ui/CustomIcon';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigation/StackNavigation';
 
+interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
 
-export const LoginScreen = () => {
-
+export const LoginScreen = ({ navigation }:Props) => {
     const { height } = useWindowDimensions();
+
     return (
-        <Layout style={{ flex:1}}>
-            <ScrollView style={{ marginHorizontal: 40}}>
-                <Layout style={{ paddingTop: height * 0.35}}>
-                    <Text category='h1'> Ingresar </Text>
-                    <Text category='p2'> por favor, ingrese para continuar </Text>
-                </Layout>
+        <Layout style={styles.container}>
+        <ScrollView contentContainerStyle={[styles.scrollContent, { paddingTop: height * 0.35 }]}>
+            
+            <Layout style={styles.headerContainer}>
+            <Text category='h1'>Ingresar</Text>
+            <Text category='p2'>Por favor, ingrese para continuar</Text>
+            </Layout>
 
-                 {/* Inputs */}
-                <Layout style={{marginTop: 20}}>
-                <Input
-                    placeholder="Correo electrónico"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    style={{marginBottom: 10}}
-                />
+            <Layout style={styles.inputContainer}>
+            <Input
+                placeholder="Correo electrónico"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                accessoryLeft={<CustomIcon name="mail-outline" />}
+                style={styles.input}
+            />
+            <Input
+                placeholder="Contraseña"
+                autoCapitalize="none"
+                secureTextEntry
+                accessoryLeft={<CustomIcon name="lock-closed-outline" />}
+                style={styles.input}
+            />
+            </Layout>
 
-                <Input
-                    placeholder="Contraseña"
-                    autoCapitalize="none"
-                    secureTextEntry
-                    style={{marginBottom: 10}}
-                />
-                </Layout>
+            <Layout style={styles.spacer} />
 
-                {/* Space */}
-                <Layout style={{height: 10}} />
+            <Button
+            accessoryRight={<CustomIcon name="arrow-forward-outline" white />}
+            onPress={() => {}}
+            >
+            Ingresar
+            </Button>
 
-                {/* Button */}
-                <Layout>
-                <Button 
-                    onPress={() => {}}
-                    >
-                        Ingresar
-                    </Button>
-                </Layout>
+            <Layout style={styles.bottomSpacer} />
 
-                {/* Información para crear cuenta */}
-                <Layout style={{height: 50}} />
-
-                <Layout
-                style={{
-                    alignItems: 'flex-end',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                        }}>
-                    <Text>¿No tienes cuenta?</Text>
-                    <Text status='primary'
-                            category="s1"  
-                            onPress={() => {}}                 
-                    >Crea una cuenta</Text>
-                </Layout>
-            </ScrollView>
+            <Layout style={styles.signupContainer}>
+            <Text>¿No tienes cuenta? </Text>
+            <Text
+                status="primary"
+                category="s1"
+                onPress={() => navigation.navigate('RegisterScreen')}
+            >
+                {' '}
+            crea una{' '}
+            </Text>
+            </Layout>
+        </ScrollView>
         </Layout>
-    )
-}
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    scrollContent: {
+        marginHorizontal: 40,
+    },
+    headerContainer: {
+        marginBottom: 20,
+    },
+    inputContainer: {
+        marginTop: 20,
+    },
+    input: {
+        marginBottom: 10,
+    },
+    spacer: {
+        height: 10,
+    },
+    bottomSpacer: {
+        height: 50,
+    },
+    signupContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+});

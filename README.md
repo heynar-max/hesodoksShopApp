@@ -88,3 +88,6 @@ project.ext.vectoricons = [
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
 ```
+
+para saber que iconos usar donde estan todos es esta pagina
+-- [**Iconos Ionicons**](https://ionic.io/ionicons) -
