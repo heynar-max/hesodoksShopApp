@@ -1,17 +1,37 @@
-import { StyleSheet, useWindowDimensions } from 'react-native';
+import { Alert, StyleSheet, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { CustomIcon } from '../../components/ui/CustomIcon';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigation/StackNavigation';
+import { useAuthStore } from '../../store/auth/useAuthStore';
+import { useState } from 'react';
 
 
 interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
 
 export const LoginScreen = ({ navigation }:Props) => {
+
+    const {login } = useAuthStore();
+    const [isPosting, setIsPosting] = useState(false)
+    const [form, setForm]= useState({
+        email: '',
+        password: '',
+    })
     const { height } = useWindowDimensions();
 
+    const onLogin = async () => {
+        if ( form.email.length === 0 || form.password.length === 0 ) {
+        return;
+        }
+        setIsPosting(true);
+        const wasSuccessful = await login(form.email, form.password);
+        setIsPosting(false);
 
+        if ( wasSuccessful ) return;
+        
+        Alert.alert('Error', 'Usuario o contraseña incorrectos');
+    }
 
     return (
         <Layout style={styles.container}>
@@ -22,32 +42,43 @@ export const LoginScreen = ({ navigation }:Props) => {
             <Text category='p2'>Por favor, ingrese para continuar</Text>
             </Layout>
 
+            {/* Inputs */}
             <Layout style={styles.inputContainer}>
             <Input
                 placeholder="Correo electrónico"
                 keyboardType="email-address"
                 autoCapitalize="none"
+                value={ form.email }
+                onChangeText={ (email) => setForm({ ...form, email })}
                 accessoryLeft={<CustomIcon name="mail-outline" />}
                 style={styles.input}
             />
             <Input
                 placeholder="Contraseña"
                 autoCapitalize="none"
+                value={ form.password }
+                onChangeText={ (password) => setForm({ ...form, password })}
                 secureTextEntry
                 accessoryLeft={<CustomIcon name="lock-closed-outline" />}
                 style={styles.input}
             />
             </Layout>
 
+            {/* Space */}
             <Layout style={styles.spacer} />
 
-            <Button
-            accessoryRight={<CustomIcon name="arrow-forward-outline" white />}
-            onPress={() => {}}
-            >
-            Ingresar
-            </Button>
+            {/* Button */}
+            <Layout>
+                <Button
+                disabled={isPosting}
+                accessoryRight={<CustomIcon name="arrow-forward-outline" white />}
+                onPress={onLogin}
+                >
+                Ingresar
+                </Button>
+            </Layout>
 
+            {/* Información para crear cuenta */}
             <Layout style={styles.bottomSpacer} />
 
             <Layout style={styles.signupContainer}>

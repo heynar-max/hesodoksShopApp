@@ -21,12 +21,9 @@ const returnUserToken = ( data: AuthResponse ) => {
     }
 }
 
-
-
 export const authLogin = async (email: string, password: string) => {
 
     email = email.toLowerCase();
-
 
     try {
         const { data } = await hesoApi.post<AuthResponse>('/auth/login', {
