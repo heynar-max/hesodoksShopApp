@@ -4,15 +4,14 @@ import { Button, Input, Layout, Text } from '@ui-kitten/components';
 import { CustomIcon } from '../../components/ui/CustomIcon';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigation/StackNavigation';
-import { API_URL, STAGE } from '@env';
+
 
 interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'> {}
 
 export const LoginScreen = ({ navigation }:Props) => {
     const { height } = useWindowDimensions();
 
-    // para ver si esta funcionan la url 
-    console.log({ apiUrl: API_URL, stage: STAGE});
+
 
     return (
         <Layout style={styles.container}>

@@ -98,3 +98,9 @@ para saber que iconos usar donde estan todos es esta pagina
 ```sh
 npm i react-native-dotenv
 ```
+
+## Paso 6: instalar axios
+
+```sh
+npm i axios
+```
