@@ -104,3 +104,8 @@ npm i react-native-dotenv
 ```sh
 npm i axios
 ```
+## Paso 6: instalar zustand
+
+```sh
+npm i zustand
+```
