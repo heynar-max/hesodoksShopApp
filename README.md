@@ -92,20 +92,28 @@ apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
 para saber que iconos usar donde estan todos es esta pagina
 -- [**Iconos Ionicons**](https://ionic.io/ionicons) -
 
-## Paso 5: instalar reactnative-dotenv
+## Paso 6: instalar reactnative-dotenv
 
 -- [**react-native-dotenv**](https://www.npmjs.com/package/react-native-dotenv) --
 ```sh
 npm i react-native-dotenv
 ```
 
-## Paso 6: instalar axios
+## Paso 7: instalar axios
 
 ```sh
 npm i axios
 ```
-## Paso 6: instalar zustand
+## Paso 8: instalar zustand
 
 ```sh
 npm i zustand
+```
+
+## Paso 9: instalar Async Storage
+para almacenar el token que quede guarada
+
+-- [**Async Storage**](https://react-native-async-storage.github.io/async-storage/docs/install/)--
+```sh
+npm install @react-native-async-storage/async-storage
 ```
