@@ -91,3 +91,10 @@ apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle");
 
 para saber que iconos usar donde estan todos es esta pagina
 -- [**Iconos Ionicons**](https://ionic.io/ionicons) -
+
+## Paso 5: instalar reactnative-dotenv
+
+-- [**react-native-dotenv**](https://www.npmjs.com/package/react-native-dotenv) --
+```sh
+npm i react-native-dotenv
+```
