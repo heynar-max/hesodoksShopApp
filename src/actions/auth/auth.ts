@@ -40,3 +40,15 @@ export const authLogin = async (email: string, password: string) => {
     }
 };
 
+export const authCheckStatus = async () => {
+
+    try {
+        const { data } = await hesoApi.get<AuthResponse>('/auth/check-status');
+        return returnUserToken(data);
+
+    } catch (error) {
+        console.log({error});
+        return null;
+    }
+
+}
