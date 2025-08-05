@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { StackNavigation } from './presentation/navigation/StackNavigation';
 import { useColorScheme } from 'react-native';
+import { AuthProvider } from './presentation/providers/AuthProvider';
 
 
 
@@ -29,7 +30,9 @@ export const HesodoksApp = () => {
         <>
         <ApplicationProvider  {...eva} theme={evaTheme}>
             <NavigationContainer theme={navigationTheme}>
-                <StackNavigation/>
+                <AuthProvider>
+                    <StackNavigation/>
+                </AuthProvider>
             </NavigationContainer>
         </ApplicationProvider>
         </>
