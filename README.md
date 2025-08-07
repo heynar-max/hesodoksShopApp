@@ -117,3 +117,11 @@ para almacenar el token que quede guarada
 ```sh
 npm install @react-native-async-storage/async-storage
 ```
+
+## Paso 10: instalar tanstack/react-query
+para almacenar el token que quede guarada
+
+-- [**tanstack/react-query**](https://tanstack.com/query/latest/docs/framework/react/installation)--
+```sh
+npm i @tanstack/react-query
+```

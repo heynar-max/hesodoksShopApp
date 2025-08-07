@@ -5,8 +5,10 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { StackNavigation } from './presentation/navigation/StackNavigation';
 import { useColorScheme } from 'react-native';
 import { AuthProvider } from './presentation/providers/AuthProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-
+// Create a client
+const queryClient = new QueryClient()
 
 export const HesodoksApp = () => {
 
@@ -27,7 +29,7 @@ export const HesodoksApp = () => {
     };
     
     return (
-        <>
+        <QueryClientProvider client={queryClient}>
         <ApplicationProvider  {...eva} theme={evaTheme}>
             <NavigationContainer theme={navigationTheme}>
                 <AuthProvider>
@@ -35,7 +37,7 @@ export const HesodoksApp = () => {
                 </AuthProvider>
             </NavigationContainer>
         </ApplicationProvider>
-        </>
+        </QueryClientProvider>
         
         
             

@@ -6,14 +6,10 @@ import { ProductMapper } from "../../infrastruture/mappers/product.mapper";
 
 export const getProductsByPage = async (page: number, limit: number = 20): Promise<Product[]> => {
 
-  console.log({page, limit});
-
     try {
 
         const { data } = await hesoApi.get<offProduct>(`/api/products?offset=${ page * 10 }&limit=${ limit }`);
-console.log(data)
         const products = data.products.map(ProductMapper.hesoProductToEntity);
-        console.log(products)
         return products;
 
     } catch (error) {
