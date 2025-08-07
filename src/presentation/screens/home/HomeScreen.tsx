@@ -1,9 +1,10 @@
-import { Button,   Layout, Text } from '@ui-kitten/components'
+import { Text } from '@ui-kitten/components'
 
-import { CustomIcon } from '../../components/ui/CustomIcon';
+
 import { useAuthStore } from '../../store/auth/useAuthStore';
 import { getProductsByPage } from '../../../actions/products/get-products-by-page';
 import { useQuery } from '@tanstack/react-query';
+import { MainLayout } from '../../layouts/MainLayout';
 
 export const HomeScreen = () => {
 
@@ -17,10 +18,12 @@ export const HomeScreen = () => {
 
 
     return (
-        <Layout style={{ flex:1, justifyContent:'center', alignItems:'center'}}>
-            <Text> {JSON.stringify(products, null, 2 )} </Text>
-            
-            
-        </Layout>
+        <MainLayout
+            title='HesoShop - products'
+            subTitle='Aplicacion administrativa'
+            >
+            <Text> hola mundo</Text>
+
+        </MainLayout>
     )
 }
