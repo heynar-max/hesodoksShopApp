@@ -20,7 +20,7 @@ export class ProductMapper {
         tags: hesoProduct.tags,
         categoryId: hesoProduct.categoryId,
         ProductImage: hesoProduct.ProductImage.map(
-        image => `${API_URL}/product-image/${image.url}` 
+            image => `${API_URL}/api/product-image/${image.url}` 
         )
     }
 
