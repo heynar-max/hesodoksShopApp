@@ -14,9 +14,18 @@ export interface Product {
     sizes:        Size[];
     slug:         string;
     tags:        string;
-    gender:       string;
+    gender:       Gender;
     categoryId:   string;
     ProductImage: string[];
+}
+
+export enum Gender {
+    Kid = "kid",
+    Men = "men",
+    Unisex = "unisex",
+    Women = "women",
+    Dorado = "dorado",
+    Plateado = "plateado",
 }
 
 export enum Size {

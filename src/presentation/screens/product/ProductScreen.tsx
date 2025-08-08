@@ -1,4 +1,4 @@
-import { Input, Layout } from "@ui-kitten/components"
+import { ButtonGroup, Input, Layout, Button, useTheme } from "@ui-kitten/components"
 import { MainLayout } from "../../layouts/MainLayout"
 import { useQuery } from "@tanstack/react-query"
 import { StackScreenProps } from "@react-navigation/stack";
@@ -7,11 +7,19 @@ import { getProductById } from "../../../actions/products/get-product-by-id";
 import { useRef } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { FadeInImage } from "../../components/ui/FadeInImage";
+import { Gender, Size } from "../../../domain/entities/product";
+import { CustomIcon } from "../../components/ui/CustomIcon";
+import { Text } from "react-native";
+
+
+const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl, Size.Mug];
+const genders: Gender[] = [Gender.Dorado, Gender.Kid, Gender.Men, Gender.Plateado, Gender.Unisex, Gender.Women]
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> {}
 
 export const ProductScreen = ({ route}: Props) => {
-
+    
+    const theme = useTheme();
     const productIdRef = useRef(route.params.productId)
 
     const { data: product} = useQuery({
@@ -84,7 +92,57 @@ export const ProductScreen = ({ route}: Props) => {
                     />
                     </Layout>
 
-                    <Layout style={{height: 200}} />
+             {/* Selectores */}
+            <ButtonGroup
+              style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
+              size="small"
+              appearance="outline">
+              {sizes.map(size => (
+                <Button
+                  key={size}
+                  style={{
+                    flex: 1,
+                    backgroundColor: true
+                      ? theme['color-primary-200']
+                      : undefined,
+                  }}>
+                  {size}
+                </Button>
+              ))}
+            </ButtonGroup>
+
+            <ButtonGroup
+              style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
+              size="small"
+              appearance="outline">
+              {genders.map(gender => (
+                <Button
+                  key={gender}
+                  style={{
+                    flex: 1,
+                    backgroundColor: true
+                      ? theme['color-primary-200']
+                      : undefined,
+                  }}>
+                  {gender}
+                </Button>
+              ))}
+            </ButtonGroup>
+
+            {/* Botón de guardar */}
+            <Button
+              accessoryLeft={<CustomIcon name="save-outline" white />}
+              onPress={() => console.log('Guardar')}
+              
+              style={{margin: 15}}>
+              Guardar
+            </Button>
+
+            <Text>{JSON.stringify(product, null, 2)}</Text>
+
+            <Layout style={{height: 200}} />
+
+                    
             </ScrollView>
         </MainLayout>
     )
