@@ -10,6 +10,7 @@ import { FadeInImage } from "../../components/ui/FadeInImage";
 import { Gender, Size } from "../../../domain/entities/product";
 import { CustomIcon } from "../../components/ui/CustomIcon";
 import { Text } from "react-native";
+import {Formik} from 'formik';
 
 
 const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl, Size.Mug];
@@ -31,9 +32,15 @@ export const ProductScreen = ({ route}: Props) => {
         return(<MainLayout title="Cargando..."/>)
     }
     return (
-        <MainLayout
-            title={product.title}
-            subTitle={` Precio: ${product.price}`}
+
+        <Formik
+            initialValues={product}
+            onSubmit={values => console.log(values)}
+        >
+            {({handleChange, handleSubmit, values, errors, setFieldValue}) =>(
+                    <MainLayout
+            title={values.title}
+            subTitle={` Precio: ${values.price}`}
         >
             
             <ScrollView style={{flex: 1}}>
@@ -41,7 +48,7 @@ export const ProductScreen = ({ route}: Props) => {
             {/* Imágenes de el producto */}
             <Layout>
                 <FlatList
-                data={product.ProductImage}
+                data={values.ProductImage}
                 keyExtractor={(item)=> item}
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -59,16 +66,19 @@ export const ProductScreen = ({ route}: Props) => {
                 <Input
                     label="Título"
                     style={{marginVertical: 5}}
-                    value={product.title}
+                    value={values.title}
+                    onChangeText={handleChange('title')}
                 />
                 <Input
                     label="Slug"
-                    value={product.slug}
+                    value={values.slug}
                     style={{marginVertical: 5}}
+                    onChangeText={handleChange('slug')}
                 />
                 <Input
                     label="Descripción"
-                    value={product.description}
+                    value={values.description}
+                    onChangeText={handleChange('description')}
                     multiline
                     numberOfLines={5}
                     style={{marginVertical: 5}}
@@ -79,71 +89,87 @@ export const ProductScreen = ({ route}: Props) => {
                     <Layout>
                     <Input
                         label="Precio"
-                        value={product.price.toString()}
+                        value={values.price.toString()}
+                        onChangeText={handleChange('price')}
                         style={{flex: 1}}
                         keyboardType="numeric"
                     />
 
                     <Input
                         label="Inventario"
-                        value={product.inStock.toString()}
+                        value={values.inStock.toString()}
+                        onChangeText={handleChange('inStock')}
                         style={{flex: 1}}
                         keyboardType="numeric"
                     />
                     </Layout>
 
-             {/* Selectores */}
-            <ButtonGroup
-              style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
-              size="small"
-              appearance="outline">
-              {sizes.map(size => (
+                {/* Selectores */}
+                <ButtonGroup
+                style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
+                size="small"
+                appearance="outline">
+                {sizes.map(size => (
+                    <Button
+                        onPress={() =>
+                        setFieldValue(
+                        'sizes',
+                        values.sizes.includes(size)
+                            ? values.sizes.filter(s => s !== size)
+                            : [...values.sizes, size],
+                        )
+                    }
+                    key={size}
+                    style={{
+                        flex: 1,
+                        backgroundColor: values.sizes.includes(size)
+                        ? theme['color-primary-200']
+                        : undefined,
+                    }}>
+                    {size}
+                    </Button>
+                ))}
+                </ButtonGroup>
+
+                <ButtonGroup
+                style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
+                size="small"
+                appearance="outline">
+                {genders.map(gender => (
+                    <Button
+                    onPress={() => setFieldValue('gender', gender)}
+                    key={gender}
+                    style={{
+                        flex: 1,
+                        backgroundColor: values.gender.startsWith(gender)
+                        ? theme['color-primary-200']
+                        : undefined,
+                    }}>
+                    {gender}
+                    </Button>
+                ))}
+                </ButtonGroup>
+
+                {/* Botón de guardar */}
                 <Button
-                  key={size}
-                  style={{
-                    flex: 1,
-                    backgroundColor: true
-                      ? theme['color-primary-200']
-                      : undefined,
-                  }}>
-                  {size}
+                accessoryLeft={<CustomIcon name="save-outline" white />}
+                onPress={() => console.log('Guardar')}
+                
+                style={{margin: 15}}>
+                Guardar
                 </Button>
-              ))}
-            </ButtonGroup>
 
-            <ButtonGroup
-              style={{margin: 2, marginTop: 20, marginHorizontal: 15}}
-              size="small"
-              appearance="outline">
-              {genders.map(gender => (
-                <Button
-                  key={gender}
-                  style={{
-                    flex: 1,
-                    backgroundColor: true
-                      ? theme['color-primary-200']
-                      : undefined,
-                  }}>
-                  {gender}
-                </Button>
-              ))}
-            </ButtonGroup>
+                <Text>{JSON.stringify(values, null, 2)}</Text>
 
-            {/* Botón de guardar */}
-            <Button
-              accessoryLeft={<CustomIcon name="save-outline" white />}
-              onPress={() => console.log('Guardar')}
-              
-              style={{margin: 15}}>
-              Guardar
-            </Button>
+                <Layout style={{height: 200}} />
 
-            <Text>{JSON.stringify(product, null, 2)}</Text>
-
-            <Layout style={{height: 200}} />
-
-                    
+                        
             </ScrollView>
         </MainLayout>
+                )
+            }
+            
+        </Formik>
+        
     )
 }

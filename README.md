@@ -125,3 +125,11 @@ para almacenar el token que quede guarada
 ```sh
 npm i @tanstack/react-query
 ```
+
+## Paso 11: instalar Formik
+para formularios
+
+-- [**Formik**](https://formik.org/docs/overview)--
+```sh
+npm install formik
+```
