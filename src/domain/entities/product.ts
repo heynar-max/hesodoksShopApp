@@ -13,7 +13,7 @@ export interface Product {
     price:        number;
     sizes:        Size[];
     slug:         string;
-    tags:        string;
+    tags:         Tag[];
     gender:       Gender;
     categoryId:   string;
     ProductImage: string[];
@@ -36,4 +36,10 @@ export enum Size {
     Xl = "XL",
     Xs = "XS",
     Xxl = "XXL",
+}
+
+export enum Tag {
+    Hoodie = "hoodie",
+    Shirt = "shirt",
+    Sublimacion = "sublimacion",
 }

@@ -9,7 +9,7 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { FadeInImage } from "../../components/ui/FadeInImage";
 import { Gender, Product, Size } from "../../../domain/entities/product";
 import { CustomIcon } from "../../components/ui/CustomIcon";
-import { Text } from "react-native";
+import { Image, Text } from "react-native";
 import {Formik} from 'formik';
 import { updateCreateProduct } from "../../../actions/products/update-create-product";
 
@@ -51,7 +51,7 @@ export const ProductScreen = ({ route}: Props) => {
             initialValues={product}
             onSubmit={mutation.mutate}
         >
-            {({handleChange, handleSubmit, values, errors, setFieldValue}) =>(
+            {({handleChange, handleSubmit, values, setFieldValue}) =>(
                     <MainLayout
             title={values.title}
             subTitle={` Precio: ${values.price}`}
@@ -60,8 +60,17 @@ export const ProductScreen = ({ route}: Props) => {
             <ScrollView style={{flex: 1}}>
 
             {/* Imágenes de el producto */}
-            <Layout>
-                <FlatList
+            <Layout
+                style={{
+                marginVertical: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+
+                {
+                    (values.ProductImage.length === 0)
+                    ? <Image source={ require('../../../assets/no-product-image.png')} style={{ width:300, height:300, marginHorizontal:7}}/>
+                    : <FlatList
                 data={values.ProductImage}
                 keyExtractor={(item)=> item}
                 horizontal
@@ -73,6 +82,8 @@ export const ProductScreen = ({ route}: Props) => {
                     />
                 )}
                 />
+                }
+                
             </Layout>
 
                 {/* Formulario */}
@@ -100,7 +111,14 @@ export const ProductScreen = ({ route}: Props) => {
                 </Layout>
 
                 {/* Precio e inventario */}
-                    <Layout>
+                    <Layout
+                        style={{
+                        marginVertical: 5,
+                        marginHorizontal: 15,
+                        flexDirection: 'row',
+                        gap: 10,
+                    }}
+                    >
                     <Input
                         label="Precio"
                         value={values.price.toString()}

@@ -13,7 +13,7 @@ export const updateCreateProduct = ( product: Partial<Product> ) => {
         return updateProduct(product);
     }
 
-return Promise.reject(new Error('Funcionalidad de creación no implementada'));
+        return createProduct( product );
     }
 
 
@@ -52,3 +52,29 @@ return Promise.reject(new Error('Funcionalidad de creación no implementada'));
     }
 
     }
+
+    const createProduct = async(product: Partial<Product>) => {
+
+    const { ProductImage = [], ...rest  } = product;
+
+    try {
+        const checkedImages = prepareImages(ProductImage);
+    
+        const { data } = await hesoApi.post(`/api/products/`, {
+        images: checkedImages,
+        ...rest,
+         categoryId: "1413fd8b-c6c0-4a6a-92dd-28475f29f689" // Siempre este valor
+        });
+
+        return data;
+        
+    } catch (error) {
+
+        if ( isAxiosError(error) ) {
+        console.log(error.response?.data);
+        }
+        
+        throw new Error('Error al actualizar el producto');
+
+    }
+}
