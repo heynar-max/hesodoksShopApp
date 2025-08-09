@@ -1,16 +1,17 @@
 import { ButtonGroup, Input, Layout, Button, useTheme } from "@ui-kitten/components"
 import { MainLayout } from "../../layouts/MainLayout"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParams } from "../../navigation/StackNavigation";
 import { getProductById } from "../../../actions/products/get-product-by-id";
 import { useRef } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { FadeInImage } from "../../components/ui/FadeInImage";
-import { Gender, Size } from "../../../domain/entities/product";
+import { Gender, Product, Size } from "../../../domain/entities/product";
 import { CustomIcon } from "../../components/ui/CustomIcon";
 import { Text } from "react-native";
 import {Formik} from 'formik';
+import { updateCreateProduct } from "../../../actions/products/update-create-product";
 
 
 const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl, Size.Mug];
@@ -28,6 +29,14 @@ export const ProductScreen = ({ route}: Props) => {
         queryFn:  () => getProductById(productIdRef.current),
     });
 
+    const mutation = useMutation({
+        mutationFn: (data: Product) => 
+        updateCreateProduct({...data, id: productIdRef.current}),
+        onSuccess(data: Product) {
+         console.log('Success')
+        },
+    });
+
     if (!product) {
         return(<MainLayout title="Cargando..."/>)
     }
@@ -35,7 +44,7 @@ export const ProductScreen = ({ route}: Props) => {
 
         <Formik
             initialValues={product}
-            onSubmit={values => console.log(values)}
+            onSubmit={mutation.mutate}
         >
             {({handleChange, handleSubmit, values, errors, setFieldValue}) =>(
                     <MainLayout
@@ -153,8 +162,8 @@ export const ProductScreen = ({ route}: Props) => {
                 {/* Botón de guardar */}
                 <Button
                 accessoryLeft={<CustomIcon name="save-outline" white />}
-                onPress={() => console.log('Guardar')}
-                
+                onPress={ ()=> handleSubmit()}
+                disabled={mutation.isPending}
                 style={{margin: 15}}>
                 Guardar
                 </Button>

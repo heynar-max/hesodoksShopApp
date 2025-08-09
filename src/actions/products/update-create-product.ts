@@ -3,7 +3,6 @@ import { Product } from '../../domain/entities/product';
 import { hesoApi } from '../../config/api/hesoApi';
 
 
-
 export const updateCreateProduct = ( product: Partial<Product> ) => {
 
     product.inStock = isNaN( Number(product.inStock)) ? 0 : Number(product.inStock);
@@ -14,7 +13,7 @@ export const updateCreateProduct = ( product: Partial<Product> ) => {
         return updateProduct(product);
     }
 
-
+return Promise.reject(new Error('Funcionalidad de creación no implementada'));
     }
 
 
@@ -35,7 +34,7 @@ export const updateCreateProduct = ( product: Partial<Product> ) => {
     try {
         const checkedImages = prepareImages(ProductImage);
     
-        const { data } = await hesoApi.patch(`/products/${id}`, {
+        const { data } = await hesoApi.patch(`/api/products/${id}`, {
         images: checkedImages,
         ...rest
         })
