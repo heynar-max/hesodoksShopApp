@@ -14,15 +14,18 @@ interface Props {
 
 export const ProductList = ({products, fetchNextPage}: Props) => {
 
+    // este  queryClient, es que me adelante a los acontecimientos
     const queryClient = useQueryClient();
-    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);  
 
 
 
     const onPullToRefresh = async() => {
         setIsRefreshing(true);
         await new Promise(resolve => setTimeout(resolve, 200));
-        queryClient.invalidateQueries({ queryKey: ['products', 'infinite'] });
+
+        // este 
+        queryClient.invalidateQueries({ queryKey: ['products', 'infinite'] }); 
 
         setIsRefreshing(false);
     }
