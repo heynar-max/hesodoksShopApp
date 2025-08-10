@@ -133,3 +133,12 @@ para formularios
 ```sh
 npm install formik
 ```
+
+## Paso 12: instalar react-native-image-picker
+
+para la camara
+
+-- [**react-native-image-picker**](https://www.npmjs.com/package/react-native-image-picker)--
+```sh
+npm i react-native-image-picker
+```
