@@ -50,9 +50,11 @@ export const ProductScreen = ({ route}: Props) => {
             onSubmit={mutation.mutate}
         >
             {({handleChange, handleSubmit, values, setFieldValue}) =>(
-                    <MainLayout
+            <MainLayout
             title={values.title}
             subTitle={` Precio: ${values.price}`}
+            rightAction={() => console.log('hola mundo')}
+            rightActionIcon="camera-outline"
         >
             
             <ScrollView style={{flex: 1}}>
