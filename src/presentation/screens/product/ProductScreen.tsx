@@ -5,17 +5,15 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParams } from "../../navigation/StackNavigation";
 import { getProductById } from "../../../actions/products/get-product-by-id";
 import { useRef } from "react";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { FadeInImage } from "../../components/ui/FadeInImage";
-import { Gender, Product, Size } from "../../../domain/entities/product";
+import {  ScrollView } from "react-native-gesture-handler";
+import {Product} from "../../../domain/entities/product";
 import { CustomIcon } from "../../components/ui/CustomIcon";
-import { Image, Text } from "react-native";
+import { Text } from "react-native";
 import {Formik} from 'formik';
 import { updateCreateProduct } from "../../../actions/products/update-create-product";
+import { ProductImages } from '../../components/products/ProductImages';
+import { genders, sizes } from "../../../config/constants/constants";
 
-
-const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl, Size.Mug];
-const genders: Gender[] = [Gender.Dorado, Gender.Kid, Gender.Men, Gender.Plateado, Gender.Unisex, Gender.Women]
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> {}
 
@@ -67,22 +65,7 @@ export const ProductScreen = ({ route}: Props) => {
                 alignItems: 'center',
             }}>
 
-                {
-                    (values.ProductImage.length === 0)
-                    ? <Image source={ require('../../../assets/no-product-image.png')} style={{ width:300, height:300, marginHorizontal:7}}/>
-                    : <FlatList
-                data={values.ProductImage}
-                keyExtractor={(item)=> item}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                    <FadeInImage
-                    uri={item}
-                    style={{ width:300, height:300, marginHorizontal:7}}
-                    />
-                )}
-                />
-                }
+                <ProductImages ProductImage={values.ProductImage}/>
                 
             </Layout>
 
